@@ -10,7 +10,6 @@ def filter_datum(fields: typing.List, redaction: str,
                  message: str, separator: str) -> str:
     """Filter log messages using regex"""
     for field in fields:
-        pattern = re.compile(
-            rf"({re.escape(separator)}{field}=)[^{separator}]*")
-        message = pattern.sub(fr"\1{redaction}", message)
+        message = re.sub(f'{field}=.*?{separator}',
+                         f'{field}={redaction}{separator}', message)
     return message
