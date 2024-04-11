@@ -72,7 +72,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     return db
 
 
-def main() -> None:
+def main():
     """Main function that displays filtered rows"""
     logger = get_logger()
     db = get_db()
@@ -80,15 +80,13 @@ def main() -> None:
     cursor.execute("SELECT * FROM users")
     rows = cursor.fetchall()
 
-    for row in rows:
-        filtered_row = filter_datum(fields=PII_FIELDS,
-                                    redaction=RedactingFormatter.REDACTION,
-                                    message=str(row), separator=";")
-        logger.info(filtered_row)
+    [logger.info(filter_datum(fields=PII_FIELDS,
+                              redaction=RedactingFormatter.REDACTION,
+                              message=str(row), separator=";"))
+     for row in rows]
 
     cursor.close()
     db.close()
-    return
 
 
 if __name__ == "__main__":
