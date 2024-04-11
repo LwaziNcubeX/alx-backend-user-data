@@ -2,6 +2,7 @@
 """
 Filtered logger that returns log messages
 """
+import datetime
 import os
 import re
 import typing
@@ -86,8 +87,11 @@ def main() -> None:
             field = cursor.column_names[i]
             if field in PII_FIELDS:
                 formatted_row += f"{field}={RedactingFormatter.REDACTION}; "
-            else:
+            elif isinstance(value, datetime.datetime):
+                value = value.strftime("%Y-%m-%d %H:%M:%S")
                 formatted_row += f"{field}={value}; "
+            else:
+                formatted_row += f"{field}={value!r}; "
         logger.info(formatted_row.strip())
 
     cursor.close()
