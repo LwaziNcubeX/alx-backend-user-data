@@ -2,9 +2,14 @@
 """
 Filtered logger that returns log messages
 """
+import os
 import re
 import typing
 import logging
+
+import mysql.connector
+from mysql.connector.abstracts import MySQLConnectionAbstract
+from mysql.connector.pooling import PooledMySQLConnection
 
 
 def filter_datum(fields: typing.List[str], redaction: str,
@@ -50,3 +55,20 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def get_db() -> PooledMySQLConnection | MySQLConnectionAbstract:
+    """Get database connector"""
+    username = os.getenv("PERSONAL_DATA_DB_USERNAME", "")
+    password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.getenv("PERSONAL_DATA_DB_HOST", "")
+    db_name = os.getenv("PERSONAL_DATA_DB_NAME", "")
+
+    db = mysql.connector.connect(
+        host=host,
+        user=username,
+        password=password,
+        database=db_name
+    )
+
+    return db
