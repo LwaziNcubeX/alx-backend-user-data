@@ -2,12 +2,11 @@
 """
 Filtered logger that returns log messages
 """
-import datetime
 import os
 import re
 import typing
 import logging
-
+import datetime
 import mysql.connector
 
 
