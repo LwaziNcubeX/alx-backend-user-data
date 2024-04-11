@@ -8,8 +8,6 @@ import typing
 import logging
 
 import mysql.connector
-from mysql.connector.abstracts import MySQLConnectionAbstract
-from mysql.connector.pooling import PooledMySQLConnection
 
 
 def filter_datum(fields: typing.List[str], redaction: str,
@@ -57,12 +55,12 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> PooledMySQLConnection | MySQLConnectionAbstract:
+def get_db() -> mysql.connector.connection.MySQLConnection:
     """Get database connector"""
-    username = os.getenv("PERSONAL_DATA_DB_USERNAME", "")
-    password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
-    host = os.getenv("PERSONAL_DATA_DB_HOST", "")
-    db_name = os.getenv("PERSONAL_DATA_DB_NAME", "")
+    username = os.environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+    password = os.environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.environ.get("PERSONAL_DATA_DB_NAME")
 
     db = mysql.connector.connect(
         host=host,
