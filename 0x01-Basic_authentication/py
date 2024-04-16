@@ -12,3 +12,6 @@ pycodestyle api/v1
 
 chmod u+x api/v1/views
 pycodestyle api/v1/views
+
+chmod u+x api/v1/auth/*py
+pycodestyle api/v1/auth/*py
