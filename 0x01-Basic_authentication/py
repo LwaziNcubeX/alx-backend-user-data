@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+#kkkk
+
+chmod u+x  models/*py
+pycodestyle models/*py
+
+chmod u+x api
+pycodestyle api
+
+chmod u+x api/v1
+pycodestyle api/v1
+
+chmod u+x api/v1/views
+pycodestyle api/v1/views
