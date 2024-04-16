@@ -7,6 +7,9 @@ from flask import request
 
 
 class Auth:
+    """
+    Auth related functions and class
+    """
 
     def requires_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
