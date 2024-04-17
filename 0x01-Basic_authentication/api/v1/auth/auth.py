@@ -6,7 +6,7 @@ from typing import List, TypeVar
 from flask import request
 
 
-class Auth(object):
+class Auth:
     """
     Auth related functions and class
     """
@@ -15,8 +15,14 @@ class Auth(object):
         """
         Checks if the path is valid
         """
+        if path is None or not excluded_paths:
+            return True
 
-        return False
+        for excluded_path in excluded_paths:
+            if path.rstrip('/') == excluded_path.rstrip('/'):
+                return False
+
+        return True
 
     def authorization_header(self, request=None) -> str:
         """
