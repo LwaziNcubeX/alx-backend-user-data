@@ -6,12 +6,12 @@ from typing import List, TypeVar
 from flask import request
 
 
-class Auth:
+class Auth(object):
     """
     Auth related functions and class
     """
 
-    def requires_auth(self, path: str, excluded_paths: List[str]) -> bool:
+    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
         Checks if the path is valid
         """
