@@ -28,8 +28,11 @@ class Auth:
         """
         Checks if the request is valid and extracts the authorization header
         """
+        header = request.headers.get('Authorization')
+        if request is None or header is None:
+            return None
 
-        return None
+        return header
 
     User = TypeVar('User')
 
